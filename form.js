@@ -142,16 +142,32 @@ checkbox1.addEventListener("change", (e) => {
 
 form.addEventListener("submit", (e) => {
   if (
-    fistNameCheck() ||
-    lastNameCheck() ||
-    emailCheck() ||
-    birthDateCheck() ||
-    quantityCheck() ||
+    !fistNameCheck() &&
+    !lastNameCheck() &&
+    !emailCheck() &&
+    !birthDateCheck() &&
+    !quantityCheck() &&
+    !boxcheck() &&
+    !checkBox1Check()
+  ) {
+    e.preventDefault();
+  }
+  if (
+    fistNameCheck() &&
+    lastNameCheck() &&
+    emailCheck() &&
+    birthDateCheck() &&
+    quantityCheck() &&
     boxcheck()
   ) {
     e.preventDefault();
     allmodal.style.display = "none";
     validationModal.style.display = "block";
+    firstName.style.border = "none";
+    lastName.style.border = "none";
+    email.style.border = "none";
+    quantity.style.border = "none";
+    birthDate.style.border = "none";
   }
   e.preventDefault();
 });
