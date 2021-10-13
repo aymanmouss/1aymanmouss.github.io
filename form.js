@@ -105,17 +105,14 @@ quantity.addEventListener("focusout", (e) => {
 const boxcheck = () => {
   for (let i = 0; i < locations.length; i++) {
     if (locations[i].checked) {
+      allLocations.setAttribute("data-error-visible", false);
       return true;
     }
   }
+  allLocations.setAttribute("data-error-visible", true);
   return false;
 };
-//  ---Onsubmit---
-form.addEventListener("submit", (e) => {
-  if (!boxcheck()) {
-    allLocations.setAttribute("data-error-visible", true);
-  }
-});
+
 //  ---On Chahnge---
 allLocations.addEventListener("change", (e) => {
   allLocations.setAttribute("data-error-visible", false);
@@ -125,15 +122,13 @@ allLocations.addEventListener("change", (e) => {
 
 const checkBox1Check = () => {
   if (checkbox1.checked) {
+    checkbox1.parentElement.setAttribute("data-error-visible", false);
     return true;
   }
+  checkbox1.parentElement.setAttribute("data-error-visible", true);
   return false;
 };
-form.addEventListener("submit", (e) => {
-  if (!checkBox1Check()) {
-    checkbox1.parentElement.setAttribute("data-error-visible", true);
-  }
-});
+
 checkbox1.addEventListener("change", (e) => {
   checkbox1.parentElement.setAttribute("data-error-visible", false);
 });
@@ -141,24 +136,23 @@ checkbox1.addEventListener("change", (e) => {
 // ==== On Form Submit ===
 
 form.addEventListener("submit", (e) => {
-  if (
-    !fistNameCheck() &&
-    !lastNameCheck() &&
-    !emailCheck() &&
-    !birthDateCheck() &&
-    !quantityCheck() &&
-    !boxcheck() &&
-    !checkBox1Check()
-  ) {
-    e.preventDefault();
-  }
+  fistNameCheck();
+  lastNameCheck();
+  emailCheck();
+  birthDateCheck();
+  quantityCheck();
+  boxcheck();
+  checkBox1Check();
+  e.preventDefault();
+
   if (
     fistNameCheck() &&
     lastNameCheck() &&
     emailCheck() &&
     birthDateCheck() &&
     quantityCheck() &&
-    boxcheck()
+    boxcheck() &&
+    checkBox1Check()
   ) {
     e.preventDefault();
     allmodal.style.display = "none";
