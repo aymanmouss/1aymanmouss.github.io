@@ -19,6 +19,8 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 function launchModal() {
   modalbg.style.display = "block";
 }
+// modal btn close
+
 const closeBtn = document.getElementsByClassName("close");
 
 const closeModal = () => {

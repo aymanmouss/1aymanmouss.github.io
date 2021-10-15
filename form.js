@@ -10,21 +10,27 @@ const form = document.getElementById("form");
 const allmodal = document.getElementById("all-modal");
 const validationModal = document.getElementById("validation-modal");
 const closevBtn = document.getElementById("closevbtn");
+const regexString = /^[a-z-A-Z]+$/;
 
 // ==== changing the border of the input ====
 
 const inputStyle = (inputName, dataError) => {
-  inputName.parentElement.setAttribute("data-error-visible", dataError);
   if (dataError) {
+    inputName.parentElement.setAttribute("data-error-visible", dataError);
     return (inputName.style.border = "solid #e54858 2px");
   }
+  inputName.parentElement.setAttribute("data-error-visible", dataError);
   return (inputName.style.border = "solid #279e7a 2px");
 };
 
 // ==== Checking the FistName ====
 
 const fistNameCheck = () => {
-  if (firstName.value.trim().length < 2 || firstName.value.trim() === "") {
+  if (
+    firstName.value.trim().length < 2 ||
+    firstName.value.trim() === "" ||
+    !firstName.value.match(regexString)
+  ) {
     inputStyle(firstName, true);
     return false;
   }
@@ -39,7 +45,11 @@ firstName.addEventListener("focusout", (e) => {
 // ==== Checking the LastName ====
 
 const lastNameCheck = () => {
-  if (lastName.value.trim().length < 2 || lastName.value.trim() === "") {
+  if (
+    lastName.value.trim().length < 2 ||
+    lastName.value.trim() === "" ||
+    !lastName.value.match(regexString)
+  ) {
     inputStyle(lastName, true);
     return false;
   }
@@ -56,12 +66,10 @@ const re =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const emailCheck = () => {
   if (email.value.trim().match(re)) {
-    email.parentElement.setAttribute("data-error-visible", false);
-    email.style.border = "solid #279e7a 2px";
+    inputStyle(email, false);
     return true;
   }
-  email.parentElement.setAttribute("data-error-visible", true);
-  email.style.border = "solid  #e54858 2px";
+  inputStyle(email, true);
   return false;
 };
 email.addEventListener("focusout", (e) => {
@@ -72,12 +80,10 @@ email.addEventListener("focusout", (e) => {
 
 const birthDateCheck = () => {
   if (birthDate.value.length === 10) {
-    birthDate.parentElement.setAttribute("data-error-visible", false);
-    birthDate.style.border = "solid #279e7a 2px";
+    inputStyle(birthDate, false);
     return true;
   }
-  birthDate.parentElement.setAttribute("data-error-visible", true);
-  birthDate.style.border = "solid #e54858 2px";
+  inputStyle(birthDate, true);
   return false;
 };
 birthDate.addEventListener("focusout", (e) => {
@@ -88,12 +94,10 @@ birthDate.addEventListener("focusout", (e) => {
 
 const quantityCheck = () => {
   if (quantity.value.length > 0) {
-    quantity.parentElement.setAttribute("data-error-visible", false);
-    quantity.style.border = "solid #279e7a 2px";
+    inputStyle(quantity, false);
     return true;
   }
-  quantity.parentElement.setAttribute("data-error-visible", true);
-  quantity.style.border = "solid #e54858 2px";
+  inputStyle(quantity, true);
   return false;
 };
 quantity.addEventListener("focusout", (e) => {
@@ -115,7 +119,7 @@ const boxcheck = () => {
 
 //  ---On Chahnge---
 allLocations.addEventListener("change", (e) => {
-  allLocations.setAttribute("data-error-visible", false);
+  boxcheck();
 });
 
 //==== Check Box Check ====
@@ -130,7 +134,7 @@ const checkBox1Check = () => {
 };
 
 checkbox1.addEventListener("change", (e) => {
-  checkbox1.parentElement.setAttribute("data-error-visible", false);
+  checkBox1Check();
 });
 
 // ==== On Form Submit ===
